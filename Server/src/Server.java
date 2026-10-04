@@ -59,4 +59,9 @@ public class Server extends UnicastRemoteObject implements ServerIF {
 	public String registerCourse(String studentId, String courseId) throws RemoteException {
 	    return data.registerCourse(studentId, courseId);
 	}
+	
+	@Override
+	public ArrayList<Student> getRegisteredStudents(String courseId) throws RemoteException {
+	    return data.getRegisteredStudents(courseId);
+	}
 }

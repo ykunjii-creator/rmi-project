@@ -21,6 +21,7 @@ public class Client {
 			    System.out.println("1. List Students");
 			    System.out.println("2. List Courses");
 			    System.out.println("3. List Registered Courses by Student");
+			    System.out.println("4. List Registered Students by Course");
 			    System.out.println("5. List Completed Courses by Student");
 			    System.out.println("6. Register Course");
 			    System.out.println("X. Exit");
@@ -48,6 +49,21 @@ public class Client {
 			            showcourinfo(registeredCourses);
 			        } else {
 			            System.out.println("No registered courses.");
+			        }
+			    }
+			    
+			    else if (sChoice.equals("4")) {
+
+			        System.out.print("Course ID: ");
+			        String courseId = objReader.readLine().trim();
+
+			        ArrayList<Student> registeredStudents =
+			                server.getRegisteredStudents(courseId);
+
+			        if (!registeredStudents.isEmpty()) {
+			            showstuinfo(registeredStudents);
+			        } else {
+			            System.out.println("No registered students.");
 			        }
 			    }
 			    
@@ -92,18 +108,22 @@ public class Client {
 
 	// showcourinfo랑 showstuinfo랑 모양 똑같이 만들기
 	private static void showcourinfo(ArrayList<Course> courses) {
-		System.out.printf("%-10s | %-10s | %-35s | %s%n",
-				"CourseNum", "Professor", "CourseName", "PreCourseList");
+		System.out.printf("%-10s | %-10s | %-35s | %-5s | %-5s | %-5s | %s%n",
+				        "CourseNum", "Professor", "CourseName",
+				        "Day", "Start", "End", "PreCourseList");
 		
-		System.out.println("------------------------------------------------------------------------------");
+				System.out.println("------------------------------------------------------------------------------------------------------");
 		
 		for (Course course : courses) {
 			
-			System.out.printf("%-10s | %-10s | %-35s | %s%n",
-					course.getCourseNum(),
-					course.getProfessor(),
-					course.getCourseName(),
-					course.getPreCourses());
+			System.out.printf("%-10s | %-10s | %-35s | %-5s | %-5d | %-5d | %s%n",
+			        course.getCourseNum(),
+			        course.getProfessor(),
+			        course.getCourseName(),
+			        course.getDay(),
+			        course.getStartTime(),
+			        course.getEndTime(),
+			        course.getPreCourses());
 		}
 	}
 

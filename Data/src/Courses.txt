@@ -1,13 +1,1 @@
-12345 Park Java_Programming
-
-23456 Park C++_Programming
-
-17651 Kim Models_of_Software_Systems 12345
-
-17652 Ko Methods_of_Software_Development 23456
-
-17653 Kim Managing_Software_Development
-
-17654 Ahn Analysis_of_Software_Artifacts 17651
-
-17655 Lee Architectures_of_Software_Systems 12345 17651
+12345 Park Java_Programming MON 09 1123456 Park C++_Programming MON 11 1317651 Kim Models_of_Software_Systems TUE 09 11 1234517652 Ko Methods_of_Software_Development TUE 11 13 2345617653 Kim Managing_Software_Development WED 09 1117654 Ahn Analysis_of_Software_Artifacts WED 10 12 1765117655 Lee Architectures_of_Software_Systems THU 13 15 12345 17651

@@ -118,10 +118,51 @@ public class Data extends UnicastRemoteObject implements DataIF {
 	    if (courseIds.contains(courseId)) {
 	        return "Already registered.";
 	    }
+	    
+	    for (String registeredCourseId : courseIds) {
+
+	        Course registeredCourse = courseList.getCourse(registeredCourseId);
+
+	        if (registeredCourse != null) {
+
+	            boolean sameDay =
+	                    registeredCourse.getDay().equals(course.getDay());
+
+	            boolean timeOverlap =
+	                    course.getStartTime() < registeredCourse.getEndTime()
+	                    && course.getEndTime() > registeredCourse.getStartTime();
+
+	            if (sameDay && timeOverlap) {
+	                return "Schedule conflict.";
+	            }
+	        }
+	    }
 
 	    courseIds.add(courseId);
 
 	    return "Registration completed.";
+	}
+	
+	@Override
+	public ArrayList<Student> getRegisteredStudents(String courseId) throws RemoteException {
+
+	    ArrayList<Student> registeredStudents = new ArrayList<Student>();
+
+	    for (String studentId : registrationMap.keySet()) {
+
+	        ArrayList<String> courseIds = registrationMap.get(studentId);
+
+	        if (courseIds != null && courseIds.contains(courseId)) {
+
+	            Student student = studentList.getStudent(studentId);
+
+	            if (student != null) {
+	                registeredStudents.add(student);
+	            }
+	        }
+	    }
+
+	    return registeredStudents;
 	}
 	
 }
