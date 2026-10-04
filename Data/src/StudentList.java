@@ -33,4 +33,13 @@ public class StudentList {
 		}
 		return false;
 	}
+	
+	public Student getStudent(String studentId) {
+	    for (Student student : this.vStudent) {
+	        if (student.match(studentId)) {
+	            return student;
+	        }
+	    }
+	    return null;
+	}
 }
