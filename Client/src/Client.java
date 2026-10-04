@@ -15,27 +15,37 @@ public class Client {
 		
 		try {
 			server = (ServerIF) Naming.lookup("Server");
-			System.out.println("******************** MENU ********************");
-			System.out.println("1. List Students");
-			System.out.println("2. List Courses");
-			
-			String sChoice = objReader.readLine().trim();
-			
-			if (sChoice.equals("1")) {
-				ArrayList<Student> students = server.getAllStudentData();
-				showstuinfo(students);
-			}
-			// 리스트 예쁘게 보여주기
-			
-			else if (sChoice.equals("2")) {
-				ArrayList<Course> courses = server.getAllCourseData();
-				showcourinfo(courses);
+			while (true) {
+
+			    System.out.println("******************** MENU ********************");
+			    System.out.println("1. List Students");
+			    System.out.println("2. List Courses");
+			    System.out.println("X. Exit");
+
+			    String sChoice = objReader.readLine().trim();
+
+			    if (sChoice.equals("1")) {
+			        ArrayList<Student> students = server.getAllStudentData();
+			        showstuinfo(students);
+			    }
+
+			    else if (sChoice.equals("2")) {
+			        ArrayList<Course> courses = server.getAllCourseData();
+			        showcourinfo(courses);
+			    }
+
+			    else if (sChoice.equalsIgnoreCase("X")) {
+			        System.out.println("Program terminated.");
+			        break;
+			    }
 			}
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	// showcourinfo랑 showstuinfo랑 모양 똑같이 만들기
 	private static void showcourinfo(ArrayList<Course> courses) {
