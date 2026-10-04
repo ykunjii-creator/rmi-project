@@ -10,4 +10,8 @@ public interface DataIF extends Remote {
 	Student getStudent(String studentId) throws RemoteException;
 	
 	ArrayList<Course> getCompletedCourseData(String studentId) throws RemoteException;
+	
+	ArrayList<Course> getRegisteredCourses(String studentId) throws RemoteException;
+
+	String registerCourse(String studentId, String courseId) throws RemoteException;
 }

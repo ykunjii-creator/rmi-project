@@ -37,6 +37,26 @@ public class Data extends UnicastRemoteObject implements DataIF {
 		}
 	}
 	
+	public ArrayList<Course> getRegisteredCourses(String studentId) {
+	    ArrayList<Course> registeredCourses = new ArrayList<Course>();
+
+	    ArrayList<String> courseIds = registrationMap.get(studentId);
+
+	    if (courseIds == null) {
+	        return registeredCourses;
+	    }
+
+	    for (String courseId : courseIds) {
+	        Course course = courseList.getCourse(courseId);
+
+	        if (course != null) {
+	            registeredCourses.add(course);
+	        }
+	    }
+
+	    return registeredCourses;
+	}
+	
 	@Override
 	public ArrayList<Student> getAllStudentData() throws RemoteException {
 		return studentList.getAllStudentRecords();
@@ -72,6 +92,36 @@ public class Data extends UnicastRemoteObject implements DataIF {
 	    }
 
 	    return completedCourses;
+	}
+	
+	@Override
+	public String registerCourse(String studentId, String courseId) throws RemoteException {
+
+	    Student student = studentList.getStudent(studentId);
+	    Course course = courseList.getCourse(courseId);
+
+	    if (student == null) {
+	        return "Student not found.";
+	    }
+
+	    if (course == null) {
+	        return "Course not found.";
+	    }
+
+	    ArrayList<String> courseIds = registrationMap.get(studentId);
+
+	    if (courseIds == null) {
+	        courseIds = new ArrayList<String>();
+	        registrationMap.put(studentId, courseIds);
+	    }
+
+	    if (courseIds.contains(courseId)) {
+	        return "Already registered.";
+	    }
+
+	    courseIds.add(courseId);
+
+	    return "Registration completed.";
 	}
 	
 }

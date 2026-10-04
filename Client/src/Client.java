@@ -17,10 +17,12 @@ public class Client {
 			server = (ServerIF) Naming.lookup("Server");
 			while (true) {
 
-			    System.out.println("******************** MENU ********************");
+			    System.out.println("\n******************** MENU ********************");
 			    System.out.println("1. List Students");
 			    System.out.println("2. List Courses");
+			    System.out.println("3. List Registered Courses by Student");
 			    System.out.println("5. List Completed Courses by Student");
+			    System.out.println("6. Register Course");
 			    System.out.println("X. Exit");
 
 			    String sChoice = objReader.readLine().trim();
@@ -35,6 +37,20 @@ public class Client {
 			        showcourinfo(courses);
 			    }
 			    
+			    else if (sChoice.equals("3")) {
+			        System.out.print("Student ID: ");
+			        String studentId = objReader.readLine().trim();
+
+			        ArrayList<Course> registeredCourses =
+			                server.getRegisteredCourses(studentId);
+
+			        if (!registeredCourses.isEmpty()) {
+			            showcourinfo(registeredCourses);
+			        } else {
+			            System.out.println("No registered courses.");
+			        }
+			    }
+			    
 			    else if (sChoice.equals("5")) {
 			        System.out.print("Student ID: ");
 			        String studentId = objReader.readLine().trim();
@@ -47,6 +63,18 @@ public class Client {
 			        } else {
 			            System.out.println("Student not found or no completed courses.");
 			        }
+			    }
+			    
+			    else if (sChoice.equals("6")) {
+			        System.out.print("Student ID: ");
+			        String studentId = objReader.readLine().trim();
+
+			        System.out.print("Course ID: ");
+			        String courseId = objReader.readLine().trim();
+
+			        String result = server.registerCourse(studentId, courseId);
+
+			        System.out.println(result);
 			    }
 
 			    else if (sChoice.equalsIgnoreCase("X")) {
