@@ -33,4 +33,13 @@ public class CourseList {
 		}
 		return false;
 	}
+	
+	public Course getCourse(String courseId) {
+	    for (Course course : this.vCourse) {
+	        if (course.match(courseId)) {
+	            return course;
+	        }
+	    }
+	    return null;
+	}
 }

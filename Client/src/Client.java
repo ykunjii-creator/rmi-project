@@ -20,6 +20,7 @@ public class Client {
 			    System.out.println("******************** MENU ********************");
 			    System.out.println("1. List Students");
 			    System.out.println("2. List Courses");
+			    System.out.println("5. List Completed Courses by Student");
 			    System.out.println("X. Exit");
 
 			    String sChoice = objReader.readLine().trim();
@@ -32,6 +33,20 @@ public class Client {
 			    else if (sChoice.equals("2")) {
 			        ArrayList<Course> courses = server.getAllCourseData();
 			        showcourinfo(courses);
+			    }
+			    
+			    else if (sChoice.equals("5")) {
+			        System.out.print("Student ID: ");
+			        String studentId = objReader.readLine().trim();
+
+			        ArrayList<Course> completedCourses =
+			                server.getCompletedCourseData(studentId);
+
+			        if (!completedCourses.isEmpty()) {
+			            showcourinfo(completedCourses);
+			        } else {
+			            System.out.println("Student not found or no completed courses.");
+			        }
 			    }
 
 			    else if (sChoice.equalsIgnoreCase("X")) {
