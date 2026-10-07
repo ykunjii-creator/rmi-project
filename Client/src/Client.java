@@ -112,7 +112,7 @@ public class Client {
 			    }
 			    
 			    else if (sChoice.equals("6")) {
-			    	server.logCommand(currentUserId, "REGISTER_COURS");
+			    	server.logCommand(currentUserId, "REGISTER_COURSE");
 			    	
 			        System.out.print("Student ID: ");
 			        String studentId = objReader.readLine().trim();
@@ -126,6 +126,7 @@ public class Client {
 			    }
 
 			    else if (sChoice.equalsIgnoreCase("X")) {
+			    		server.logCommand(currentUserId, "EXIT");
 			        System.out.println("Program terminated.");
 			        break;
 			    }

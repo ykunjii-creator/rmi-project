@@ -14,7 +14,7 @@ public class SystemLogger {
 	            userId + " | " + commandType + " | " + timestamp
 	            + System.lineSeparator();
 
-	    try (FileWriter writer = new FileWriter("SystemLog.txt", true)) {
+	    try (FileWriter writer = new FileWriter("../logs/SystemLog.txt", true)) {
 	        writer.write(logMessage);
 
 	    } catch (IOException e) {

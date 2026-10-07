@@ -26,10 +26,10 @@ public class Data extends UnicastRemoteObject implements DataIF {
 			Naming.rebind("Data", data);
 			System.out.println("Data is ready !!!");
 			
-			studentList = new StudentList("Students.txt");
-			courseList = new CourseList("Courses.txt");
+			studentList = new StudentList("../data/Students.txt");
+			courseList = new CourseList("../data/Courses.txt");
 			registrationMap = new HashMap<String, ArrayList<String>>();
-			accountList = new AccountList("Accounts.txt");
+			accountList = new AccountList("../data/Accounts.txt");
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -108,6 +108,10 @@ public class Data extends UnicastRemoteObject implements DataIF {
 
 	    if (course == null) {
 	        return "Course not found.";
+	    }
+	    
+	    if (student.getCompletedCourses().contains(courseId)) {
+	        return "Course already completed.";
 	    }
 
 	    ArrayList<String> courseIds = registrationMap.get(studentId);

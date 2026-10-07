@@ -37,20 +37,5 @@ public class AccountList {
 
 	    return savedPassword.equals(password);
 	}
-	
-	public static void main(String[] args) {
-
-	    try {
-	    		AccountList accountList = new AccountList("Accounts.txt");
-	    		
-	    		System.out.println(accountList.authenticate("20100123", "pass1234"));
-	    		System.out.println(accountList.authenticate("20100123", "wrong"));
-	    		System.out.println(accountList.authenticate("99999999", "pass1234"));
-	    		
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-
-	}
 
 }
