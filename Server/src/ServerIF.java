@@ -16,4 +16,8 @@ public interface ServerIF extends Remote {
 	String registerCourse(String studentId, String courseId) throws RemoteException;
 
 	ArrayList<Student> getRegisteredStudents(String courseId) throws RemoteException;
+	
+	boolean authenticate(String id, String password) throws RemoteException;
+	
+	void logCommand(String userId, String commandType) throws RemoteException;
 }

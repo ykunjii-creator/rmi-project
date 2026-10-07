@@ -56,12 +56,23 @@ public class Server extends UnicastRemoteObject implements ServerIF {
 	}
 	
 	@Override
+	public ArrayList<Student> getRegisteredStudents(String courseId) throws RemoteException {
+	    return data.getRegisteredStudents(courseId);
+	}
+	
+	@Override
 	public String registerCourse(String studentId, String courseId) throws RemoteException {
 	    return data.registerCourse(studentId, courseId);
 	}
 	
 	@Override
-	public ArrayList<Student> getRegisteredStudents(String courseId) throws RemoteException {
-	    return data.getRegisteredStudents(courseId);
+	public boolean authenticate(String id, String password) throws RemoteException {
+	    return data.authenticate(id, password);
 	}
+	
+	@Override
+	public void logCommand(String userId, String commandType) throws RemoteException {
+	    SystemLogger.log(userId, commandType);
+	}
+
 }

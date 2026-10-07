@@ -12,6 +12,7 @@ public class Data extends UnicastRemoteObject implements DataIF {
 	protected static StudentList studentList;
 	protected static CourseList courseList;
 	protected static HashMap<String, ArrayList<String>> registrationMap;
+	protected static AccountList accountList;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -28,6 +29,7 @@ public class Data extends UnicastRemoteObject implements DataIF {
 			studentList = new StudentList("Students.txt");
 			courseList = new CourseList("Courses.txt");
 			registrationMap = new HashMap<String, ArrayList<String>>();
+			accountList = new AccountList("Accounts.txt");
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -163,6 +165,11 @@ public class Data extends UnicastRemoteObject implements DataIF {
 	    }
 
 	    return registeredStudents;
+	}
+	
+	@Override
+	public boolean authenticate(String id, String password) throws RemoteException {
+	    return accountList.authenticate(id, password);
 	}
 	
 }

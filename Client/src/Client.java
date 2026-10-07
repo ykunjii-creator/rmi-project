@@ -15,6 +15,26 @@ public class Client {
 		
 		try {
 			server = (ServerIF) Naming.lookup("Server");
+			String currentUserId = null;
+
+			
+			while (true) {
+
+			    System.out.print("Login ID: ");
+			    String id = objReader.readLine().trim();
+
+			    System.out.print("Password: ");
+			    String password = objReader.readLine().trim();
+
+			    if (server.authenticate(id, password)) {
+			    		currentUserId = id;
+			        System.out.println("Login successful.");
+			        break;
+			    }
+
+			    System.out.println("Invalid ID or password.");
+			}
+			
 			while (true) {
 
 			    System.out.println("\n******************** MENU ********************");
@@ -29,16 +49,22 @@ public class Client {
 			    String sChoice = objReader.readLine().trim();
 
 			    if (sChoice.equals("1")) {
+			    		server.logCommand(currentUserId, "LIST_STUDENTS");
+			    		
 			        ArrayList<Student> students = server.getAllStudentData();
 			        showstuinfo(students);
 			    }
 
 			    else if (sChoice.equals("2")) {
+			    		server.logCommand(currentUserId, "LIST_COURSES");
+			    	
 			        ArrayList<Course> courses = server.getAllCourseData();
 			        showcourinfo(courses);
 			    }
 			    
 			    else if (sChoice.equals("3")) {
+			    		server.logCommand(currentUserId, "LIST_REGISTERED_COURSES");
+			    		
 			        System.out.print("Student ID: ");
 			        String studentId = objReader.readLine().trim();
 
@@ -53,6 +79,8 @@ public class Client {
 			    }
 			    
 			    else if (sChoice.equals("4")) {
+			    		server.logCommand(currentUserId, "LIST_REGISTERED_STUDENTS");
+			    	
 
 			        System.out.print("Course ID: ");
 			        String courseId = objReader.readLine().trim();
@@ -68,7 +96,9 @@ public class Client {
 			    }
 			    
 			    else if (sChoice.equals("5")) {
-			        System.out.print("Student ID: ");
+			    		server.logCommand(currentUserId, "LIST_COMPLETED_COURSES");
+			        
+			    		System.out.print("Student ID: ");
 			        String studentId = objReader.readLine().trim();
 
 			        ArrayList<Course> completedCourses =
@@ -82,6 +112,8 @@ public class Client {
 			    }
 			    
 			    else if (sChoice.equals("6")) {
+			    	server.logCommand(currentUserId, "REGISTER_COURS");
+			    	
 			        System.out.print("Student ID: ");
 			        String studentId = objReader.readLine().trim();
 
