@@ -1,4 +1,7 @@
 import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -28,7 +31,10 @@ public class Data extends UnicastRemoteObject implements DataIF {
 			
 			studentList = new StudentList("../data/Students.txt");
 			courseList = new CourseList("../data/Courses.txt");
+			
 			registrationMap = new HashMap<String, ArrayList<String>>();
+			loadRegistrations("../data/Registrations.txt");
+			
 			accountList = new AccountList("../data/Accounts.txt");
 			
 		} catch (RemoteException e) {
@@ -37,6 +43,38 @@ public class Data extends UnicastRemoteObject implements DataIF {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private static void loadRegistrations(String fileName) throws IOException {
+
+	    BufferedReader reader = new BufferedReader(new FileReader(fileName));
+
+	    String line;
+
+	    while ((line = reader.readLine()) != null) {
+
+	        if (line.trim().isEmpty()) {
+	            continue;
+	        }
+
+	        String[] parts = line.trim().split("\\s+");
+
+	        String studentId = parts[0];
+	        String courseId = parts[1];
+
+	        ArrayList<String> courseIds = registrationMap.get(studentId);
+
+	        if (courseIds == null) {
+	            courseIds = new ArrayList<String>();
+	            registrationMap.put(studentId, courseIds);
+	        }
+
+	        if (!courseIds.contains(courseId)) {
+	            courseIds.add(courseId);
+	        }
+	    }
+
+	    reader.close();
 	}
 	
 	public ArrayList<Course> getRegisteredCourses(String studentId) {
@@ -57,6 +95,27 @@ public class Data extends UnicastRemoteObject implements DataIF {
 	    }
 
 	    return registeredCourses;
+	}
+	
+	private static void saveRegistration(String studentId, Course course) {
+
+	    try (FileWriter writer =
+	            new FileWriter("../data/Registrations.txt", true)) {
+
+	        writer.write(
+	                studentId + " | "
+	                + course.getCourseNum() + " | "
+	                + course.getProfessor() + " | "
+	                + course.getCourseName() + " | "
+	                + course.getDay() + " "
+	                + course.getStartTime() + "-"
+	                + course.getEndTime()
+	                + System.lineSeparator()
+	        );
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	@Override
@@ -145,6 +204,9 @@ public class Data extends UnicastRemoteObject implements DataIF {
 	    }
 
 	    courseIds.add(courseId);
+	    
+	    saveRegistration(studentId, course);
+
 
 	    return "Registration completed.";
 	}
