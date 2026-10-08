@@ -74,5 +74,10 @@ public class Server extends UnicastRemoteObject implements ServerIF {
 	public void logCommand(String userId, String commandType) throws RemoteException {
 	    SystemLogger.log(userId, commandType);
 	}
+	
+	@Override
+	public String cancelCourse(String studentId, String courseId) throws RemoteException {
+	    return data.cancelCourse(studentId, courseId);
+	}
 
 }

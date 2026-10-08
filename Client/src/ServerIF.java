@@ -20,4 +20,6 @@ public interface ServerIF extends Remote {
 	boolean authenticate(String id, String password) throws RemoteException;
 	
 	void logCommand(String userId, String commandType) throws RemoteException;
+	
+	String cancelCourse(String studentId, String courseId) throws RemoteException;
 }

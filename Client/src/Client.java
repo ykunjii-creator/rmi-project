@@ -44,6 +44,7 @@ public class Client {
 			    System.out.println("4. List Registered Students by Course");
 			    System.out.println("5. List Completed Courses by Student");
 			    System.out.println("6. Register Course");
+			    System.out.println("7. Cancel Course");
 			    System.out.println("X. Exit");
 
 			    String sChoice = objReader.readLine().trim();
@@ -121,6 +122,20 @@ public class Client {
 			        String courseId = objReader.readLine().trim();
 
 			        String result = server.registerCourse(studentId, courseId);
+
+			        System.out.println(result);
+			    }
+			    
+			    else if (sChoice.equals("7")) {
+			        server.logCommand(currentUserId, "CANCEL_COURSE");
+
+			        System.out.print("Student ID: ");
+			        String studentId = objReader.readLine().trim();
+
+			        System.out.print("Course ID: ");
+			        String courseId = objReader.readLine().trim();
+
+			        String result = server.cancelCourse(studentId, courseId);
 
 			        System.out.println(result);
 			    }
